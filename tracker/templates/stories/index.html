@@ -1,0 +1,26 @@
+<h1>User stories</h1>
+<form action="{% url 'stories:evaluate' %}" method="post">
+  {% csrf_token %}
+
+  <table>
+    <tr>
+      <th>Description</th>
+      <th>{{ user }}'s estimate</th>
+      <th>Avg. estimate</th>
+      <th>Final estimate</th>
+      <th></th>
+    </tr>
+    {% for story in stories %}
+    <tr>
+      <td>{{ story.description }}</td>
+      <td>
+        <input type="hidden" name="story" value="{{ story.id }}" />
+        <input type="text" name="estimate" value="{{ evaluation.estimate }}" maxlength="2" />
+      </td>
+      <td>{{ story.average }}</td>
+      <td>{{ story.final_estimate }}</td>
+      <td><button type="submit">Evaluate</button></td>
+    </tr>
+    {% endfor %}
+  </table>
+</form>
